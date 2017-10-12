@@ -119,19 +119,28 @@ The two images with speed limits we correctly classified as speed limits, but wi
 
 3. Softmax probabilities
 
-In the jupyter notebook we can see what were the top 5 candidates for each images, as well as the probabilities assigned to these lables.
+In the jupyter notebook we can see what were the top 5 candidates for each images, as well as the probabilities assigned to these labels.
 We can see, for example, that for the first image our classifier is extremely confident that it is a priority road, as it gives negligible probability to all other options. It is nowhere near as certain when it comes to the rest of the images, with the most confident vote being that image 9 is a double curve at 69%. For those that we missclassified, we can see that the correct label appears as choice number 2 in the case of pictures 
 
 
 [ 1.00, 1.27e-09,   1.11e-09, 8.37e-10,   6.57e-10]
+
 [ 0.58, 0.32, 0.04, 0.027, 0.025]
+
 [ 0.34, 0.22, 0.16, 0.14,  0.12]
+
 [ 9.10125256e-01, 8.93e-02,   2.29e-04, 1.55e-04,   1.38e-04]
+
 [ 0.33,  0.25,  0.18,  0.16,  0.06]
+
 [ 6.26e-01,   3.11e-01,   4.02e-02, 2.15e-02, 1.718e-05]
+
 [ 0.63,  0.34 ,  0.008,  0.008,  0.002]
-[ 0.58,  0.13,  0.12,  0.097,  0.051]      
+
+[ 0.58,  0.13,  0.12,  0.097,  0.051] 
+
 [ 6.93e-01, 2.83e-01, 2.11e-02, 1.60e-03,   5.80e-04]
+
 [ 0.31,  0.22,  0.18,  0.17,  0.10]
 
 
