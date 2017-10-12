@@ -120,7 +120,8 @@ The two images with speed limits we correctly classified as speed limits, but wi
 3. Softmax probabilities
 
 In the jupyter notebook we can see what were the top 5 candidates for each images, as well as the probabilities assigned to these labels.
-We can see, for example, that for the first image our classifier is extremely confident that it is a priority road, as it gives negligible probability to all other options. It is nowhere near as certain when it comes to the rest of the images, with the most confident vote being that image 9 is a double curve at 69%. For those that we missclassified, we can see that the correct label appears as choice number 2 in the case of pictures 
+We can see, for example, that for the first image our classifier is extremely confident that it is a priority road, as it gives negligible probability to all other options. Similarly, it is very confident that image 4 is a go straigh or right, but that is completely wrong! It has the right label, no entry, as the second best, but with only 8%. 
+It is nowhere near as certain when it comes to the rest of the images, with the most confident vote being that image 9 is a double curve at 69%. For those that we missclassified, we can see that the correct label appears as choice number 2 in the case of pictures 
 
 
 [ 1.00, 1.27e-09,   1.11e-09, 8.37e-10,   6.57e-10]
@@ -144,11 +145,16 @@ We can see, for example, that for the first image our classifier is extremely co
 [ 0.31,  0.22,  0.18,  0.17,  0.10]
 
 
+For those that were missclassified, we can see that the right answer appears as the second choice in the case of images 2 and 4, and as choice 4 for image 5. The other two, images 8 and 10, do not have the right answer anywhere in the top five.
+
+We believe that part of the issue with these images was simply that in the dataset most signs have a similar scale and position with respect to the image, and our cropping of these 10 pics was highly irregular. This is an obvious shortcoming of our classifier, and we would probably need to add some sort of "localization" algorithm in order to pick where the sign actually is, before using our classifier.
 
 ***(Optional) Visualizing the Neural Network ***
 
 1. Visual Output of the filters in the first convolution
 
-<img src="examples/features_15conv1.png.jpg" width="64" alt="Combined Image" />
+Below we can see how a 20 km speed limit sign looks under the 16 different filters we used in our first convolution. We can see that most of them seem to be mainly picking the shape of the sign and a blurry representation of the numbers inside.
+
+<img src="examples/features_15conv1.png" width="720" alt="Combined Image" />
 
 
