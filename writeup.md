@@ -1,61 +1,61 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
+In this project we build a Convolution Network and we train it to classify German traffic signs. The aim is to obtain at least 93% accuracy on the validation set, test it on a test set and finally test it on new traffic signs to be obtained from the web.
 
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
-
----
-
-**Build a Traffic Sign Recognition Project**
-
-The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
+Below we will give o brief overview of the process we followed to do so, and try to explain why we make the choices we made, as well as where could we potentially improve our Neural Network.
 
 
 
 
-![Testing]: (examples/Frequencies_testing.png)
-[image2]: ./examples/Frequencies_training.png "Training"
-[image3]: ./examples/Frequencies_validation.png "Validation"
-[image4]: ./examples/Transformation_blur.png "Blur"
-[image5]: ./examples/Transformation_homography.png "Homography"
-[image6]: ./examples/Transformation_noise.png "Noise"
-[image7]: ./examples/Transformation_rotation.png "Rotation"
-[image8]: ./examples/pTransformation_shift.png "Shift"
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+<img src="examples/newImage0.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage1.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage2.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage3.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage4.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage5.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage6.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage7.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage8.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage9.jpg" width="64" alt="Combined Image" />
 
----
-###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ###Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+We begin the project by loadind the data, and obtaining a quick summary of the dimensions of our data set.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+* Number of training examples = 34799
+* Number of validating examples = 4410
+* Number of testing examples = 12630
+* Image data shape = (32, 32, 3)
+* Number of classes = 43
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+####Exploratory visualization of the dataset.
 
-####2. Include an exploratory visualization of the dataset.
+In the Jupyter notebook we provide a quick visualization of the type of images in our data set. Namely, we pick a random subset of the labels, and for each of them we pick 10 random images, so that without covering all of the cases, we can get a glimpse of the variotion we will see.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+After that, we summarized the data sets by label. Below we show histograms for each of the sets:
 
-![alt text][image1]
+Training Set
+<img src="examples/Frequencies_training.png" width="240" alt="Combined Image" />
+
+Validation Set
+<img src="examples/Frequencies_validation.png" width="240" alt="Combined Image" />
+
+Test Set
+<img src="examples/Frequencies_testing.png" width="240" alt="Combined Image" />
+
+We can see that the distribution across labels is very uneven, but at the same time, very similar in all three sets. Since we are interested in the performance on the test and validation sets, we do not need to regularise this distribution. Indeed, if we believe that this is the frequency in which they are found on the German roads, we might be happy to preserve it.
+On the other hand, if we had reason to care more about properly classifying certain signs, we would then want to ensure they are properly represented in our sample. 
+
+We still decided to augment the Training data set, which we did by using five transformations. Below we show an example for each of them:
+
+<img src="examples/Transformation_blur.png" width="128" alt="Combined Image" />
+<img src="examples/Transformation_homography.png" width="128" alt="Combined Image" />
+<img src="examples/Transformation_noise.png" width="128" alt="Combined Image" />
+<img src="examples/Transformation_rotation.png" width="128" alt="Combined Image" />
+<img src="examples/Transformation_shift.png" width="128" alt="Combined Image" />
+
 
 ###Design and Test a Model Architecture
 
