@@ -4,22 +4,6 @@ In this project we build a Convolution Network and we train it to classify Germa
 
 Below we will give o brief overview of the process we followed to do so, and try to explain why we make the choices we made, as well as where could we potentially improve our Neural Network.
 
-
-
-
-
-<img src="examples/newImage0.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage1.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage2.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage3.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage4.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage5.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage6.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage7.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage8.jpg" width="64" alt="Combined Image" />
-<img src="examples/newImage9.jpg" width="64" alt="Combined Image" />
-
-
 **Data Set Summary & Exploration**
 
 We begin the project by loadind the data, and obtaining a quick summary of the dimensions of our data set.
@@ -53,85 +37,64 @@ On the other hand, if we had reason to care more about properly classifying cert
 
 We still decided to augment the Training data set, which we did by using five transformations. Below we show an example for each of them:
 
-<img src="examples/Transformation_blur.png" width="128" alt="Combined Image" />
-<img src="examples/Transformation_homography.png" width="128" alt="Combined Image" />
+<img src="examples/Transformation_blur.png" width="128" alt="Combined Image" /> <img src="examples/Transformation_homography.png" width="128" alt="Combined Image" />
 <img src="examples/Transformation_noise.png" width="128" alt="Combined Image" />
 <img src="examples/Transformation_rotation.png" width="128" alt="Combined Image" />
 <img src="examples/Transformation_shift.png" width="128" alt="Combined Image" />
 
 This transformations should help us obtain a more robust model than we would without them. Small perturbations of the image, that might be due to a number of causes, should have no effect on our classifier. So if we later encounter signs that seem slightly rotated, blurry, further up or down on the image, we should still be able to classify them.
 
-**Design and Test a Model Architecture
+**Design and Test a Model Architecture**
 
 1. Preprocessing the Data
 
 Following the paper http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf, we decided to convert to grayscale, and furthermore we applied histogram equalization (which enlarges the range of the image as a function) to improve the contrast, and we normalized the resulting image to the range [ 0, 1].
 
 
+2. Model architecture
 
-As a last step, I normalized the image data because ...
+Again, following the paper above, we decided to use a Convolution Net in which all of the convolution layers feed into a fully connected layer, the idea behind it being that each convolution layer picks up features at different scales, and all scales could be useful for the final classification.
 
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
-
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+We have three convolution layers followed by two fully connected ones. After each convolution layer we also apply some pooling and dropout, which should help avoid overfitting.
 
 My final model consisted of the following layers:
 
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+1 - Convolution layer using a 5 x 5 filter, followed by SELU activation, 2 x 2 x 2 pooling and dropout.
+2 - Convolution layer using a 5 x 5 filter, followed by SELU activation, 2 x 2 x 2 pooling and dropout.
+3 - Convolution layer using a 5 x 5 filter, followed by SELU activation, 2 x 2 x 2 pooling and dropout.
+4 - Fully connected layer, followed by SELU activation and dropout.
+5 - Fully connected layer, followed by SELU activation and dropout.
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+3. Training
 
-To train the model, I used an ....
+We trained the model over 60 Epochs, reducing the learning rate and keep probability every 15 Epochs. We used the AdamOptimizer that we inherited from the LeNet algorithm, and since we obtained good results with this setup, we did not pursue any changes to it.
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+4. Approach
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+We began by using the default architecture of the LeNet lab. Since we converted to grayscale as part of our preprocessing, we didn't need to change the input size, and we only needed to adapt the output. The initial result was not very encouraging (around 86%), so we knew we needed to improve all along the pipeline.
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+Following the Semarnet & LeCunn paper, we added a third convolution layer, and ensured that all three layers fed into the first fully connected layer. We also changed the activation to SELU. These changes improved our validation accuracy to around 93%.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+The next step was to augment the data with the transformations we introduced above. This changes improved our validation accuracy to about 94%.
 
-###Test a Model on New Images
+Finally, we introduced dropout, which allowed us to obtain 98.7% accuracy on the validation set.
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+When we tested it on the test set we got a respectable 95.8%. We believe a few changes to the architecture and a more aggresive dropout might improve our results.
 
-Here are five German traffic signs that I found on the web:
+**Test a Model on New Images**
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+1. We picked 10 new traffic signs from the internet
+
+<img src="examples/newImage0.jpg" width="64" alt="Combined Image" /> <img src="examples/newImage1.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage2.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage3.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage4.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage5.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage6.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage7.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage8.jpg" width="64" alt="Combined Image" />
+<img src="examples/newImage9.jpg" width="64" alt="Combined Image" />
 
 The first image might be difficult to classify because ...
 
