@@ -19,14 +19,14 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./examples/Frequencies_testing.png "Testing"
+[image2]: ./examples/Frequencies_training.png "Training"
+[image3]: ./examples/Frequencies_validation.png "Validation"
+[image4]: ./examples/Transformation_blur.png "Blur"
+[image5]: ./examples/Transformation_homography.png "Homography"
+[image6]: ./examples/Transformation_noise.png "Noise"
+[image7]: ./examples/Transformation_rotation.png "Rotation"
+[image8]: ./examples/pTransformation_shift.png "Shift"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
