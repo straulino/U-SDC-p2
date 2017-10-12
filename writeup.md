@@ -57,7 +57,7 @@ Again, following the paper above, we decided to use a Convolution Net in which a
 
 We have three convolution layers followed by two fully connected ones. After each convolution layer we also apply some pooling and dropout, which should help avoid overfitting.
 
-My final model consisted of the following layers:
+Our final model consisted of the following layers:
 
 1 - Convolution layer using a 5 x 5 filter, followed by SELU activation, 2 x 2 x 2 pooling and dropout.
 2 - Convolution layer using a 5 x 5 filter, followed by SELU activation, 2 x 2 x 2 pooling and dropout.
@@ -96,39 +96,45 @@ When we tested it on the test set we got a respectable 95.8%. We believe a few c
 <img src="examples/newImage8.jpg" width="64" alt="Combined Image" />
 <img src="examples/newImage9.jpg" width="64" alt="Combined Image" />
 
-The first image might be difficult to classify because ...
+We picked what we thought would be challenging images. They cover a smaller region of the image than in our training set, and most of them have other features in the background that might add noise to our classifier. Some of them also seem to have been taken with strange angles.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+We expected to have trouble classifying the fifth and eight images in particular.
 
-Here are the results of the prediction:
+2. Results
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+We obtained a mediocre 50% accuracy on this set. The labels we obtained were:
+1 'Priority road' 
+2 'Speed limit (80km/h)' 
+3 'Stop'
+4 'Go straight or right'
+5 'Speed limit (70km/h)' 
+6 'End of no passing'
+7 'Roundabout mandatory'
+8 'Turn right ahead' 
+9 'Double curve' 
+10 'Speed limit (60km/h)'
 
+We correctly labeled images 1,3,6,7 and 9. We gave wrong labels to the rest, including the two we expected to get wrong.
+The two images with speed limits we correctly classified as speed limits, but with the wrong limit. The remaining three images were very badly missclassified.
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+3. Softmax probabilities
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
-
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+In the jupyter notebook we can see what were the top 5 candidates for each images, as well as the probabilities assigned to these lables.
+We can see, for example, that for the first image our classifier is extremely confident that it is a priority road, as it gives negligible probability to all other options. It is nowhere near as certain when it comes to the rest of the images, with the most confident vote being that image 9 is a double curve at 69%. For those that we missclassified, we can see that the correct label appears as choice number 2 in the case of pictures 
 
 
-For the second image ... 
+[ 1.00, 1.27e-09,   1.11e-09, 8.37e-10,   6.57e-10]
+[ 0.58, 0.32, 0.04, 0.027, 0.025]
+[ 0.34, 0.22, 0.16, 0.14,  0.12]
+[ 9.10125256e-01, 8.93e-02,   2.29e-04, 1.55e-04,   1.38e-04]
+[ 0.33,  0.25,  0.18,  0.16,  0.06]
+[ 6.26e-01,   3.11e-01,   4.02e-02, 2.15e-02, 1.718e-05]
+[ 0.63,  0.34 ,  0.008,  0.008,  0.002]
+[ 0.58,  0.13,  0.12,  0.097,  0.051]      
+[ 6.93e-01, 2.83e-01, 2.11e-02, 1.60e-03,   5.80e-04]
+[ 0.31,  0.22,  0.18,  0.17,  0.10]
+
+
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
