@@ -17,10 +17,9 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 
 
-[//]: # (Image References)
 
 
-![image1]: ./examples/Frequencies_testing.png "Testing"
+![Testing]: (examples/Frequencies_testing.png)
 [image2]: ./examples/Frequencies_training.png "Training"
 [image3]: ./examples/Frequencies_validation.png "Validation"
 [image4]: ./examples/Transformation_blur.png "Blur"
