@@ -19,7 +19,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/Frequencies_testing.png "Testing"
+
+![image1]: ./examples/Frequencies_testing.png "Testing"
 [image2]: ./examples/Frequencies_training.png "Training"
 [image3]: ./examples/Frequencies_validation.png "Validation"
 [image4]: ./examples/Transformation_blur.png "Blur"
