@@ -1,4 +1,4 @@
-#**Traffic Sign Recognition** 
+***Traffic Sign Recognition*** 
 
 In this project we build a Convolution Network and we train it to classify German traffic signs. The aim is to obtain at least 93% accuracy on the validation set, test it on a test set and finally test it on new traffic signs to be obtained from the web.
 
@@ -20,7 +20,7 @@ Below we will give o brief overview of the process we followed to do so, and try
 <img src="examples/newImage9.jpg" width="64" alt="Combined Image" />
 
 
-###Data Set Summary & Exploration
+**Data Set Summary & Exploration**
 
 We begin the project by loadind the data, and obtaining a quick summary of the dimensions of our data set.
 
@@ -30,19 +30,22 @@ We begin the project by loadind the data, and obtaining a quick summary of the d
 * Image data shape = (32, 32, 3)
 * Number of classes = 43
 
-####Exploratory visualization of the dataset.
+*Exploratory visualization of the dataset.*
 
 In the Jupyter notebook we provide a quick visualization of the type of images in our data set. Namely, we pick a random subset of the labels, and for each of them we pick 10 random images, so that without covering all of the cases, we can get a glimpse of the variotion we will see.
 
 After that, we summarized the data sets by label. Below we show histograms for each of the sets:
 
 Training Set
+
 <img src="examples/Frequencies_training.png" width="240" alt="Combined Image" />
 
 Validation Set
+
 <img src="examples/Frequencies_validation.png" width="240" alt="Combined Image" />
 
 Test Set
+
 <img src="examples/Frequencies_testing.png" width="240" alt="Combined Image" />
 
 We can see that the distribution across labels is very uneven, but at the same time, very similar in all three sets. Since we are interested in the performance on the test and validation sets, we do not need to regularise this distribution. Indeed, if we believe that this is the frequency in which they are found on the German roads, we might be happy to preserve it.
@@ -56,16 +59,15 @@ We still decided to augment the Training data set, which we did by using five tr
 <img src="examples/Transformation_rotation.png" width="128" alt="Combined Image" />
 <img src="examples/Transformation_shift.png" width="128" alt="Combined Image" />
 
+This transformations should help us obtain a more robust model than we would without them. Small perturbations of the image, that might be due to a number of causes, should have no effect on our classifier. So if we later encounter signs that seem slightly rotated, blurry, further up or down on the image, we should still be able to classify them.
 
-###Design and Test a Model Architecture
+**Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+1. Preprocessing the Data
 
-As a first step, I decided to convert the images to grayscale because ...
+Following the paper http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf, we decided to convert to grayscale, and furthermore we applied histogram equalization (which enlarges the range of the image as a function) to improve the contrast, and we normalized the resulting image to the range [ 0, 1].
 
-Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][image2]
 
 As a last step, I normalized the image data because ...
 
