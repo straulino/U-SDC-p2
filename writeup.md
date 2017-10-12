@@ -145,7 +145,10 @@ We can see, for example, that for the first image our classifier is extremely co
 
 
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+***(Optional) Visualizing the Neural Network ***
+
+1. Visual Output of the filters in the first convolution
+
+<img src="examples/features_15conv1.png.jpg" width="64" alt="Combined Image" />
 
 
